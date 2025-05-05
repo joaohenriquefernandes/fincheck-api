@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
 
 @Injectable()
@@ -6,6 +6,16 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async getUserById(userId: string) {
-    console.log(userId);
+    const user = await this.usersRepository.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        name: true,
+        email: true,
+      },
+    });
+    if (!user) throw new NotFoundException();
+    return user;
   }
 }
