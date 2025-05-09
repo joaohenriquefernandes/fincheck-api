@@ -35,7 +35,7 @@ export class BankAccountsController {
   @Get(':bankAccountId')
   findOne(
     @ActiveUserId() userId: string,
-    @Param('bankAccountId') bankAccountId: string,
+    @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
   ) {
     return this.bankAccountsService.findOneByUserId(userId, bankAccountId);
   }
@@ -57,7 +57,7 @@ export class BankAccountsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(
     @ActiveUserId() userId: string,
-    @Param('bankAccountId') bankAccountId: string,
+    @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
   ) {
     return this.bankAccountsService.remove(userId, bankAccountId);
   }

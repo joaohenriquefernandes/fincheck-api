@@ -3,9 +3,12 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
-  Patch,
+  ParseUUIDPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -17,8 +20,11 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto);
+  create(
+    @ActiveUserId() userId: string,
+    @Body() createCategoryDto: CreateCategoryDto,
+  ) {
+    return this.categoriesService.create(userId, createCategoryDto);
   }
 
   @Get()
@@ -26,21 +32,29 @@ export class CategoriesController {
     return this.categoriesService.findAllByUserId(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
+  @Get(':categoryId')
+  findOne(
+    @ActiveUserId() userId: string,
+    @Param('categoryId', ParseUUIDPipe) categoryId: string,
+  ) {
+    return this.categoriesService.findOneByUserId(userId, categoryId);
   }
 
-  @Patch(':id')
+  @Put(':categoryId')
   update(
-    @Param('id') id: string,
+    @ActiveUserId() userId: string,
+    @Param('categoryId', ParseUUIDPipe) categoryId: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+    return this.categoriesService.update(userId, categoryId, updateCategoryDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(+id);
+  @Delete(':categoryId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(
+    @ActiveUserId() userId: string,
+    @Param('categoryId', ParseUUIDPipe) categoryId: string,
+  ) {
+    return this.categoriesService.remove(userId, categoryId);
   }
 }

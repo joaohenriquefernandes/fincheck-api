@@ -53,7 +53,7 @@ export class TransactionsController {
   @Get(':transactionId')
   findOne(
     @ActiveUserId() userId: string,
-    @Param('transactionId') transactionId: string,
+    @Param('transactionId', ParseUUIDPipe) transactionId: string,
   ) {
     return this.transactionsService.findOneByUserId(userId, transactionId);
   }
