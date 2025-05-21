@@ -26,6 +26,7 @@ export class CategoriesService {
     const categories = await this.categoriesRepository.findMany({
       where: { userId },
       select: {
+        id: true,
         name: true,
         icon: true,
         type: true,

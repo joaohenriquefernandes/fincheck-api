@@ -10,16 +10,25 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+} from '@nestjs/swagger';
 import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoriesService } from './services/categories.service';
 
+@ApiBearerAuth()
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new category' })
+  @ApiBody({ type: CreateCategoryDto })
   create(
     @ActiveUserId() userId: string,
     @Body() createCategoryDto: CreateCategoryDto,
@@ -28,11 +37,14 @@ export class CategoriesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'List all categories' })
   findAll(@ActiveUserId() userId: string) {
     return this.categoriesService.findAllByUserId(userId);
   }
 
   @Get(':categoryId')
+  @ApiOperation({ summary: 'Get a specific category' })
+  @ApiParam({ name: 'categoryId', description: 'Category ID' })
   findOne(
     @ActiveUserId() userId: string,
     @Param('categoryId', ParseUUIDPipe) categoryId: string,
@@ -41,6 +53,9 @@ export class CategoriesController {
   }
 
   @Put(':categoryId')
+  @ApiOperation({ summary: 'Edit a category' })
+  @ApiParam({ name: 'categoryId', description: 'Category ID' })
+  @ApiBody({ type: UpdateCategoryDto })
   update(
     @ActiveUserId() userId: string,
     @Param('categoryId', ParseUUIDPipe) categoryId: string,
@@ -50,6 +65,8 @@ export class CategoriesController {
   }
 
   @Delete(':categoryId')
+  @ApiOperation({ summary: 'Delete a category' })
+  @ApiParam({ name: 'categoryId', description: 'Category ID' })
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(
     @ActiveUserId() userId: string,

@@ -58,7 +58,7 @@ export class TransactionsService {
         type: filters.type,
         date: {
           gte: new Date(Date.UTC(filters.year, filters.month)),
-          lt: new Date(Date.UTC(filters.year, filters.month) + 1),
+          lt: new Date(Date.UTC(filters.year, filters.month + 1)),
         },
       },
     });
