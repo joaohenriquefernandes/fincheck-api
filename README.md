@@ -1,98 +1,187 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 📊 FincheckAPI
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**FincheckAPI** is a RESTful API built with **NestJS** that powers Fincheck — a personal finance application designed to help users monitor and manage their financial life in a simple and efficient way.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 📌 About the Project
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Fincheck was created to give users complete control over their financial activities. It allows them to manage:
 
-## Project setup
+- Bank accounts
+- Investments
+- Expenses and income
+- Financial planning
 
-```bash
-$ pnpm install
+The main goal is to promote **financial awareness and control** through an intuitive and powerful platform.
+
+---
+
+## 🚀 Main Features
+
+- 🔐 **Authentication**  
+  Account creation, login, and protected user dashboard using JWT authentication.
+
+- 🏦 **Bank Accounts**  
+  Full CRUD operations to manage user's bank accounts.
+
+- 📈 **360° Overview**  
+  A centralized view of all bank accounts and investments.
+
+---
+
+## 🛠️ Tech Stack
+[![Technologies](https://skillicons.dev/icons?i=nestjs,nodejs,ts,postgres,prisma,docker)](https://skillicons.dev)
+
+---
+
+## 📂 API Endpoints
+
+### 👤 Users
+
+| Method | Endpoint     | Description                   |
+|--------|--------------|-------------------------------|
+| GET    | `/users/me`  | Retrieve the current user profile |
+
+---
+
+### 🔐 Auth
+
+| Method | Endpoint        | Description               |
+|--------|------------------|---------------------------|
+| POST   | `/auth/signup`   | Create a new user account |
+| POST   | `/auth/signin`   | Log into a user account   |
+
+---
+
+### 🗂️ Categories
+
+| Method | Endpoint                     | Description                     |
+|--------|------------------------------|---------------------------------|
+| POST   | `/categories`                | Create a new category           |
+| GET    | `/categories`                | List all categories             |
+| GET    | `/categories/{categoryId}`   | Retrieve a specific category    |
+| PUT    | `/categories/{categoryId}`   | Update a specific category      |
+| DELETE | `/categories/{categoryId}`   | Delete a specific category      |
+
+---
+
+### 🏦 Bank Accounts
+
+| Method | Endpoint                            | Description                       |
+|--------|-------------------------------------|-----------------------------------|
+| POST   | `/bank-accounts`                    | Create a new bank account         |
+| GET    | `/bank-accounts`                    | List all bank accounts            |
+| GET    | `/bank-accounts/{bankAccountId}`    | Retrieve a specific bank account  |
+| PUT    | `/bank-accounts/{bankAccountId}`    | Update a specific bank account    |
+| DELETE | `/bank-accounts/{bankAccountId}`    | Delete a specific bank account    |
+
+---
+
+### 💸 Transactions
+
+| Method | Endpoint                              | Description                       |
+|--------|----------------------------------------|-----------------------------------|
+| POST   | `/transactions`                        | Create a new transaction          |
+| GET    | `/transactions`                        | List all transactions             |
+| GET    | `/transactions/{transactionId}`        | Retrieve a specific transaction   |
+| PUT    | `/transactions/{transactionId}`        | Update a specific transaction     |
+| DELETE | `/transactions/{transactionId}`        | Delete a specific transaction     |
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the root directory and configure the following variables:
+
+```env
+DATABASE_URL=postgresql://root:root@localhost:5432/fincheck?schema=public
+JWT_SECRET=your_jwt_secret
 ```
 
-## Compile and run the project
+---
+
+## 🧪 Running the Project Locally
+
+### Clone the repository
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+git clone https://github.com/your-username/fincheck-api.git
+cd fincheck-api
 ```
 
-## Run tests
+---
+
+### Install dependencies
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+npm install
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Create the environment variables file
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+cp .env.example .env
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+### Start PostgreSQL with Docker
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+docker-compose up -d
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+### Generate the Prisma client
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npx prisma generate
+```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Run the database migrations
 
-## License
+```bash
+npx prisma migrate dev
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+### Start the development server
+
+```bash
+npm run start:dev
+```
+
+---
+
+## 📘 Swagger API Documentation
+After starting the server, access the full API documentation at:
+
+```bash
+http://localhost:3000/api
+```
+
+---
+
+## 🤝 Contributing
+Feel free to open issues, suggest improvements or submit pull requests to help improve the project!
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+---
+
+## ✉️ Contact
+Developed by João Henrique Fernandes.
+
+[![Linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/joaohenriquefernandes/)
+[![Github](https://skillicons.dev/icons?i=github)](https://github.com/joaohenriquefernandes)
